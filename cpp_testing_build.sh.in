@@ -1,0 +1,34 @@
+#!/bin/bash
+
+#****************************************************************************
+#
+#                           Klepsydra Core Modules
+#              Copyright (C) 2019-2020  Klepsydra Technologies GmbH
+#                            All Rights Reserved.
+#
+#  This file is subject to the terms and conditions defined in
+#  file 'LICENSE.md', which is part of this source code package.
+#
+#  NOTICE:  All information contained herein is, and remains the property of Klepsydra
+#  Technologies GmbH and its suppliers, if any. The intellectual and technical concepts
+#  contained herein are proprietary to Klepsydra Technologies GmbH and its suppliers and
+#  may be covered by Swiss and Foreign Patents, patents in process, and are protected by
+#  trade secret or copyright law. Dissemination of this information or reproduction of
+#  this material is strictly forbidden unless prior written permission is obtained from
+#  Klepsydra Technologies GmbH.
+#
+#****************************************************************************
+
+# Abort on errors
+set -e
+
+rm -rf build_cpptesting
+mkdir build_cpptesting
+python3 -m venv build_cpptesting
+. build_cpptesting/bin/activate
+python -m pip install --find-links dist kpsr_codegen
+cd build_cpptesting
+cmake -DKPSR_WITH_DDS=@KPSR_WITH_DDS@ -DKPSR_WITH_ZMQ=@KPSR_WITH_ZMQ@
+cmake --build . -- "-j$(nproc)"
+make test
+deactivate
