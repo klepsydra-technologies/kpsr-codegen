@@ -1,0 +1,2 @@
+include kpsr_codegen/conf/*.yaml kpsr_codegen/templates/*.*
+exclude kpsr_codegen/tests/*

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#****************************************************************************
+#
+#                           Klepsydra Core Modules
+#              Copyright (C) 2019-2020  Klepsydra Technologies GmbH
+#                            All Rights Reserved.
+#
+#  This file is subject to the terms and conditions defined in
+#  file 'LICENSE.md', which is part of this source code package.
+#
+#  NOTICE:  All information contained herein is, and remains the property of Klepsydra
+#  Technologies GmbH and its suppliers, if any. The intellectual and technical concepts
+#  contained herein are proprietary to Klepsydra Technologies GmbH and its suppliers and
+#  may be covered by Swiss and Foreign Patents, patents in process, and are protected by
+#  trade secret or copyright law. Dissemination of this information or reproduction of
+#  this material is strictly forbidden unless prior written permission is obtained from
+#  Klepsydra Technologies GmbH.
+#
+#****************************************************************************
+
+# Abort on errors
+set -e
+
+rm -rf build_cpptesting
+mkdir build_cpptesting
+@PYTHON@ -m venv build_cpptesting
+. build_cpptesting/bin/activate
+python -m pip install --editable @CMAKE_CURRENT_SOURCE_DIR@/../
+cd build_cpptesting
+# export PYTHONPATH=${PYTHONPATH}:"@CMAKE_CURRENT_SOURCE_DIR@/../build/lib"
+echo 'cmake -DKPSR_WITH_DDS=@KPSR_WITH_DDS@ -DKPSR_WITH_RTPS=@KPSR_WITH_RTPS@ -DKPSR_WITH_ZMQ=@KPSR_WITH_ZMQ@ -DTHIRDPARTIES_PATH=@THIRDPARTIES_PATH@ -DCMAKE_PREFIX_PATH="@CMAKE_TEST_PREFIX_PATH@" -DFASTRTPSGEN="@FASTRTPSGEN@" @CPP_TESTING_DIR@'
+cmake -DKPSR_WITH_DDS=@KPSR_WITH_DDS@ -DKPSR_WITH_RTPS=@KPSR_WITH_RTPS@ -DKPSR_WITH_ZMQ=@KPSR_WITH_ZMQ@ -DTHIRDPARTIES_PATH=@THIRDPARTIES_PATH@ -DCMAKE_PREFIX_PATH="@CMAKE_TEST_PREFIX_PATH@" -DFASTRTPSGEN="@FASTRTPSGEN@" @CPP_TESTING_DIR@
+cmake --build . -- "-j$(nproc)"
+make test
+deactivate
