@@ -1,0 +1,16 @@
+build
+build/**
+gen/**
+gen
+**/*.pyc
+venv
+**/cpp_testing/tests/kpsr_ros_codegen/include/**/*.h
+**/cpp_testing/tests/kpsr_ros_codegen/msg/*.msg
+gen_test*
+dist
+kpsr_codegen.egg-info
+.vscode
+*~
+.*
+!.gitignore
+!.github
