@@ -24,13 +24,11 @@ set -e
 
 rm -rf build_cpptesting
 mkdir build_cpptesting
-@PYTHON@ -m venv build_cpptesting
+python3 -m venv build_cpptesting
 . build_cpptesting/bin/activate
-python -m pip install --editable @CMAKE_CURRENT_SOURCE_DIR@/../
+python -m pip install --find-links dist kpsr_codegen
 cd build_cpptesting
-# export PYTHONPATH=${PYTHONPATH}:"@CMAKE_CURRENT_SOURCE_DIR@/../build/lib"
-echo 'cmake -DKPSR_WITH_DDS=@KPSR_WITH_DDS@ -DKPSR_WITH_RTPS=@KPSR_WITH_RTPS@ -DKPSR_WITH_ZMQ=@KPSR_WITH_ZMQ@ -DTHIRDPARTIES_PATH=@THIRDPARTIES_PATH@ -DCMAKE_PREFIX_PATH="@CMAKE_TEST_PREFIX_PATH@" -DFASTRTPSGEN="@FASTRTPSGEN@" @CPP_TESTING_DIR@'
-cmake -DKPSR_WITH_DDS=@KPSR_WITH_DDS@ -DKPSR_WITH_RTPS=@KPSR_WITH_RTPS@ -DKPSR_WITH_ZMQ=@KPSR_WITH_ZMQ@ -DTHIRDPARTIES_PATH=@THIRDPARTIES_PATH@ -DCMAKE_PREFIX_PATH="@CMAKE_TEST_PREFIX_PATH@" -DFASTRTPSGEN="@FASTRTPSGEN@" @CPP_TESTING_DIR@
+cmake -DKPSR_WITH_DDS=@KPSR_WITH_DDS@ -DKPSR_WITH_ZMQ=@KPSR_WITH_ZMQ@
 cmake --build . -- "-j$(nproc)"
 make test
 deactivate
