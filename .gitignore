@@ -13,3 +13,4 @@ kpsr_codegen.egg-info
 *~
 .*
 !.gitignore
+!.github
