@@ -22,8 +22,18 @@ PROJECT(${PROJ_NAME})
 
 # Source
 #---------------------------------------------------#
+KpsrEventGenerator("${CMAKE_SOURCE_DIR}/modules/codegen/kidl_test1" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test1" "klepsydra/codegen" "True" "False" "True")
+KpsrEventGenerator("${CMAKE_SOURCE_DIR}/modules/codegen/kidl_test2" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test2" "klepsydra/codegen" "True" "False" "True")
+KpsrEventGenerator("${CMAKE_SOURCE_DIR}/modules/codegen/kidl_test3" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test3" "klepsydra/codegen" "True" "False" "True")
+KpsrEventGenerator("${CMAKE_SOURCE_DIR}/modules/codegen/kidl_test4" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test4" "klepsydra/codegen" "True" "False" "True")
+KpsrEventGenerator("${CMAKE_SOURCE_DIR}/modules/codegen/kidl_test5" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test5" "klepsydra/codegen" "True" "False" "True")
+
 FILE(GLOB ${PROJ_NAME}_SRC
     "src/*.cpp"
+)
+
+FILE(GLOB ${PROJ_NAME}_HEADERS
+  "gen_test*/*.h"
 )
 
 ADD_EXECUTABLE(${PROJ_NAME} ${${PROJ_NAME}_HEADERS} ${${PROJ_NAME}_SRC} )
@@ -35,16 +45,16 @@ TARGET_LINK_LIBRARIES(${PROJ_NAME} PUBLIC kpsr_core kpsr_zmq_core gtest_main )
 TARGET_INCLUDE_DIRECTORIES(${PROJ_NAME}
   PRIVATE
   ${CMAKE_SOURCE_DIR}/modules/${PROJ_MAIN_NAME}/include
-  ${CMAKE_SOURCE_DIR}/modules/codegen/gen_test11/poco/include
-  ${CMAKE_SOURCE_DIR}/modules/codegen/gen_test11/serialization/include
-  ${CMAKE_SOURCE_DIR}/modules/codegen/gen_test21/poco/include
-  ${CMAKE_SOURCE_DIR}/modules/codegen/gen_test21/serialization/include
-  ${CMAKE_SOURCE_DIR}/modules/codegen/gen_test31/poco/include
-  ${CMAKE_SOURCE_DIR}/modules/codegen/gen_test31/serialization/include
-  ${CMAKE_SOURCE_DIR}/modules/codegen/gen_test41/poco/include
-  ${CMAKE_SOURCE_DIR}/modules/codegen/gen_test41/serialization/include
-  ${CMAKE_SOURCE_DIR}/modules/codegen/gen_test51/poco/include
-  ${CMAKE_SOURCE_DIR}/modules/codegen/gen_test51/serialization/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test1/poco/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test1/serialization/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test2/poco/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test2/serialization/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test3/poco/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test3/serialization/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test4/poco/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test4/serialization/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test5/poco/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test5/serialization/include
   )
 
 add_test(NAME ${PROJ_NAME} COMMAND ${PROJ_NAME} --output-on-failure --gtest_output=xml:gtestresults.xml)

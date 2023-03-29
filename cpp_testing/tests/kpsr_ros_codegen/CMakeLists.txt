@@ -23,6 +23,8 @@ project(kpsr_ros_codegen)
 add_definitions(-std=c++11)
 
 find_package(Klepsydra REQUIRED)
+# Klepsydra provides the KpsrCodeGen.cmake
+include(${KLEPSYDRA_CODE_GENERATOR})
 
 # Must use GNUInstallDirs to install libraries into correct
 # locations on all platforms.
@@ -75,6 +77,32 @@ set(KPSR_INCLUDE_PATH ${CMAKE_INSTALL_INCLUDEDIR})
 # #     and list every .msg/.srv/.action file to be processed
 # #   * uncomment the generate_messages entry below
 # #   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
+
+KpsrEventGenerator("${CMAKE_CURRENT_SOURCE_DIR}/kidl_test1" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test1" "klepsydra/codegen" "False" "True" "True")
+KpsrEventGenerator("${CMAKE_CURRENT_SOURCE_DIR}/kidl_test2" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test2" "klepsydra/codegen" "False" "True" "True")
+KpsrEventGenerator("${CMAKE_CURRENT_SOURCE_DIR}/kidl_test3" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test3" "klepsydra/codegen" "False" "True" "True")
+KpsrEventGenerator("${CMAKE_CURRENT_SOURCE_DIR}/kidl_test4" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test4" "klepsydra/codegen" "False" "True" "True")
+KpsrEventGenerator("${CMAKE_CURRENT_SOURCE_DIR}/kidl_test5" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test5" "klepsydra/codegen" "False" "True" "True")
+
+file(GLOB TEST2_ROS_MESSAGES
+  "gen_test2/rosstg/msg/*.msg"
+)
+
+file(GLOB TEST3_ROS_MESSAGES
+  "gen_test3/rosstg/msg/*.msg"
+)
+
+file(GLOB TEST4_ROS_MESSAGES
+  "gen_test4/rosstg/msg/*.msg"
+)
+
+file(GLOB TEST5_ROS_MESSAGES
+  "gen_test5/rosstg/msg/*.msg"
+)
+file(COPY ${TEST2_ROS_MESSAGES} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/msg)
+file(COPY ${TEST3_ROS_MESSAGES} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/msg)
+file(COPY ${TEST4_ROS_MESSAGES} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/msg)
+file(COPY ${TEST5_ROS_MESSAGES} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/msg)
 
 # # Generate messages in the 'msg' folder
 add_message_files(
@@ -148,14 +176,14 @@ catkin_package(
 # include_directories(include)
 include_directories(
   include/${PROJECT_NAME}
-  ../../modules/codegen/gen_test1/poco/include
-  ../../modules/codegen/gen_test2/poco/include
-  ../../modules/codegen/gen_test3/poco/include
-  ../../modules/codegen/gen_test4/poco/include
-  ../../modules/codegen/gen_test1/rosstg/include
-  ../../modules/codegen/gen_test2/rosstg/include
-  ../../modules/codegen/gen_test3/rosstg/include
-  ../../modules/codegen/gen_test4/rosstg/include
+  gen_test1/poco/include
+  gen_test2/poco/include
+  gen_test3/poco/include
+  gen_test4/poco/include
+  gen_test1/rosstg/include
+  gen_test2/rosstg/include
+  gen_test3/rosstg/include
+  gen_test4/rosstg/include
   ../../modules/codegen/include
   ${catkin_INCLUDE_DIRS}
   ${KLEPSYDRA_INCLUDE_DIRS}
@@ -185,7 +213,6 @@ target_include_directories(kpsr_ros_codegen INTERFACE
 target_link_libraries(kpsr_ros_codegen INTERFACE
   ${catkin_LIBRARIES}
   ${KLEPSYDRA_CORE_LIBRARIES}
-  atomic
 )
 
 # ############

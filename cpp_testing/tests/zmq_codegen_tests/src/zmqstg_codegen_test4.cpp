@@ -31,7 +31,6 @@
 
 #include <klepsydra/core/event_emitter_middleware_provider.h>
 #include <klepsydra/core/cache_listener.h>
-#include <klepsydra/core/threadpool.h>
 
 #include <klepsydra/zmq_core/to_zmq_middleware_provider.h>
 #include <klepsydra/zmq_core/from_zmq_middleware_provider.h>
@@ -39,7 +38,6 @@
 #include <klepsydra/codegen/cereal/inheritance_vector4_serializer.h>
 
 TEST(KpsrZMQCodegeTest, inheritanceMapperMapperTest) {
-    auto& threadPool = kpsr::Threadpool::getCriticalThreadPool(40);
 
     std::string serverUrl = "tcp://*:5556";
     std::string topic = "test";

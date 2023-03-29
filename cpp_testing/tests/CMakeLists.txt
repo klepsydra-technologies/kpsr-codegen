@@ -17,24 +17,20 @@
 #
 #****************************************************************************
 
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/klepsydra-technologies/googletest.git
+)
 # Prevent overriding the parent project's compiler/linker
 # settings on Windows
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-
-# Add googletest directly to our build. This defines
-# the gtest and gtest_main targets.
-add_subdirectory(${GTEST_PATH}
-                 ${CMAKE_BINARY_DIR}/googletest-build
-                 EXCLUDE_FROM_ALL)
-
-# The gtest/gtest_main targets carry header search path
-# dependencies automatically when using CMake 2.8.11 or
-# later. Otherwise we have to add them here ourselves.
-include_directories("${GTEST_PATH}/googletest/include")
+FetchContent_MakeAvailable(googletest)
 
 find_package(Klepsydra REQUIRED)
 
 add_subdirectory(${PROJ_MAIN_NAME}_tests)
+
 IF(KPSR_WITH_ZMQ)
    ADD_SUBDIRECTORY(zmq_${PROJ_MAIN_NAME}_tests)
 ENDIF()
@@ -44,12 +40,4 @@ IF(KPSR_WITH_DDS)
   ADD_SUBDIRECTORY(dds_${PROJ_MAIN_NAME}_tests_1_2)
   ADD_SUBDIRECTORY(dds_${PROJ_MAIN_NAME}_tests_3_4)
   ADD_SUBDIRECTORY(dds_${PROJ_MAIN_NAME}_tests_1_5)
-ENDIF()
-IF(KPSR_TEST_PERFORMANCE)
-   ADD_SUBDIRECTORY(performance)
-ENDIF()
-
-IF(KPSR_WITH_RTPS)
-   ADD_SUBDIRECTORY(rtps_${PROJ_MAIN_NAME}_tests_1_2)
-   ADD_SUBDIRECTORY(rtps_${PROJ_MAIN_NAME}_tests_3_4)
 ENDIF()

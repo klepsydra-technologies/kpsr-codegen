@@ -22,8 +22,18 @@ PROJECT(${PROJ_NAME})
 
 # Source
 #---------------------------------------------------#
+KpsrEventGenerator("${CMAKE_SOURCE_DIR}/modules/codegen/kidl_test1" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test1" "klepsydra/codegen" "True" "True" "True")
+KpsrEventGenerator("${CMAKE_SOURCE_DIR}/modules/codegen/kidl_test2" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test2" "klepsydra/codegen" "True" "True" "True")
+KpsrEventGenerator("${CMAKE_SOURCE_DIR}/modules/codegen/kidl_test3" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test3" "klepsydra/codegen" "True" "True" "True")
+KpsrEventGenerator("${CMAKE_SOURCE_DIR}/modules/codegen/kidl_test4" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test4" "klepsydra/codegen" "True" "True" "True")
+KpsrEventGenerator("${CMAKE_SOURCE_DIR}/modules/codegen/kidl_test5" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test5" "klepsydra/codegen" "True" "True" "True")
+
 FILE(GLOB ${PROJ_NAME}_SRC
     "src/*.cpp"
+)
+
+FILE(GLOB ${PROJ_NAME}_HEADERS
+  "gen_test*/*.h"
 )
 
 # Link libraries with Project
@@ -37,11 +47,11 @@ TARGET_LINK_LIBRARIES(${PROJ_NAME} kpsr_core gtest_main )
 
 TARGET_INCLUDE_DIRECTORIES(${PROJ_NAME}
   PRIVATE
-  ${CMAKE_SOURCE_DIR}/modules/${PROJ_MAIN_NAME}/gen_test1/poco/include
-  ${CMAKE_SOURCE_DIR}/modules/${PROJ_MAIN_NAME}/gen_test2/poco/include
-  ${CMAKE_SOURCE_DIR}/modules/${PROJ_MAIN_NAME}/gen_test3/poco/include
-  ${CMAKE_SOURCE_DIR}/modules/${PROJ_MAIN_NAME}/gen_test4/poco/include
-  ${CMAKE_SOURCE_DIR}/modules/${PROJ_MAIN_NAME}/gen_test5/poco/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test1/poco/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test2/poco/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test3/poco/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test4/poco/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test5/poco/include
   ${CMAKE_SOURCE_DIR}/modules/${PROJ_MAIN_NAME}/include
   )
 

@@ -1,2 +1,2 @@
-include kpsr_codegen/conf/*.yaml kpsr_codegen/templates/*.*
+include kpsr_codegen/conf/*.yaml kpsr_codegen/templates/*.* cmake/KpsrCode*.cmake
 exclude kpsr_codegen/tests/*

@@ -30,40 +30,8 @@ IF(DEFINED CMAKE_BUILD_TYPE AND CMAKE_VERSION VERSION_GREATER "2.8")
   SET_PROPERTY(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${CMAKE_CONFIGURATION_TYPES})
 ENDIF()
 
-#Install binaries
-IF(DEFINED THIRDPARTIES_PATH)
-ELSE()
-  SET(THIRDPARTIES_PATH ${CMAKE_SOURCE_DIR}/../../thirdparties )
-ENDIF()
-message(STATUS "Thirdparties install path: " ${THIRDPARTIES_PATH})
-
-IF(DEFINED GTEST_PATH)
-ELSE()
-        SET(GTEST_PATH ${THIRDPARTIES_PATH}/googletest) #default google test path
-ENDIF()
-message(STATUS "Google test path: " ${GTEST_PATH})
-if(DEFINED KPSR_BUILD_PATH)
-else()
-	SET(KPSR_BUILD_PATH ${CMAKE_SOURCE_DIR}/../../kpsr-build)
-endif()
-message(STATUS "kpsr-build path: " ${KPSR_BUILD_PATH})
-
-# Configure variables
-# ------------------------------------------------------------------------------------------------------
-
-# Paths
-SET(CMAKE_MODULE_PATH            ${KPSR_BUILD_PATH}/cmake ${CMAKE_SOURCE_DIR}/../cmake)
-SET(LIBRARY_OUTPUT_PATH          ${PROJECT_BINARY_DIR}/bin                   CACHE PATH "Library output" FORCE)
-SET(EXECUTABLE_OUTPUT_PATH       ${PROJECT_BINARY_DIR}/bin                   CACHE PATH "Executable output" FORCE)
-
-# Must use GNUInstallDirs to install libraries into correct
-# locations on all platforms.
-include(GNUInstallDirs)
-
-# Build type
 SET(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries" FORCE)
 
-include(KpsrCodeGen)
 
 include(CheckCXXCompilerFlag)
 include(CheckIncludeFileCXX)
@@ -100,7 +68,6 @@ else()
 endif()
 
 add_definitions(-std=c++11)
-enable_testing()
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     # require at least gcc 4.8
     if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 7.5)
@@ -120,18 +87,23 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
+enable_testing()
 # Configuration current project
 # ------------------------------------------------------------------------------------------------------
 
 #Dependencies
 
 find_package(Threads REQUIRED)
+find_package(Klepsydra REQUIRED)
+
+# Klepsydra provides the KpsrCodeGen.cmake
+include(${KLEPSYDRA_CODE_GENERATOR})
+
 # Project Logic
 # ------------------------------------------------------------------------------------------------------
 
 ######################################################################################
 # ADD SUB FOLDERS
 ######################################################################################
-ADD_SUBDIRECTORY(modules)
 ADD_SUBDIRECTORY(tests)
 

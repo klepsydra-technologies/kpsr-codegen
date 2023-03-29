@@ -23,8 +23,11 @@ PROJECT(${PROJ_NAME})
 file(REMOVE_RECURSE ${CMAKE_CURRENT_SOURCE_DIR}/gen)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/gen)
 
-file(GLOB idls ${CMAKE_SOURCE_DIR}/modules/codegen/gen_test1/dds/idl/*.idl
-               ${CMAKE_SOURCE_DIR}/modules/codegen/gen_test2/dds/idl/*.idl)
+KpsrEventGenerator("${CMAKE_SOURCE_DIR}/modules/codegen/kidl_test1" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test1" "klepsydra/codegen" "True" "True" "False")
+KpsrEventGenerator("${CMAKE_SOURCE_DIR}/modules/codegen/kidl_test2" "${CMAKE_CURRENT_SOURCE_DIR}/gen_test2" "klepsydra/codegen" "True" "True" "False")
+
+file(GLOB idls ${CMAKE_CURRENT_SOURCE_DIR}/gen_test1/dds/idl/*.idl
+               ${CMAKE_CURRENT_SOURCE_DIR}/gen_test2/dds/idl/*.idl)
 FOREACH(idl ${idls})
         Connext_IDLGEN (${idl} ${CMAKE_CURRENT_SOURCE_DIR})
         GET_FILENAME_COMPONENT(nfile ${idl} NAME)
@@ -51,11 +54,11 @@ TARGET_LINK_LIBRARIES(kpsr_dds_${PROJ_MAIN_NAME}_datamodel_1_2
 
 TARGET_INCLUDE_DIRECTORIES(${PROJ_NAME}
   PRIVATE
-  ${CMAKE_SOURCE_DIR}/modules/codegen/gen_test1/poco/include
-  ${CMAKE_SOURCE_DIR}/modules/codegen/gen_test1/dds/include 
-  ${CMAKE_SOURCE_DIR}/modules/codegen/gen_test2/poco/include
-  ${CMAKE_SOURCE_DIR}/modules/codegen/gen_test2/dds/include
-  ${CMAKE_SOURCE_DIR}/modules/${PROJ_MAIN_NAME}/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test1/poco/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test1/dds/include 
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test2/poco/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_test2/dds/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/modules/${PROJ_MAIN_NAME}/include
   ${CMAKE_CURRENT_SOURCE_DIR}/gen
 )
 
