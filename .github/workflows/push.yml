@@ -39,7 +39,7 @@ jobs:
           git config --global --add safe.directory ${GITHUB_WORKSPACE}
           python3 -m pip install build --upgrade
           python3 -m build
-          python3 -m pip install --find-links dist kpsr_codegen
+          python3 -m pip install -I --find-links dist kpsr_codegen
 
       - name: Unit tests
         timeout-minutes: 10
@@ -58,8 +58,7 @@ jobs:
       - name: Test codegen against klepsydra core
         timeout-minutes: 10
         run: |
-          python3 -m build
-          python3 -m pip install --find-links dist kpsr_codegen
+          python3 -m pip install -I --find-links dist kpsr_codegen 
           mkdir build_cpptesting
           cd build_cpptesting
           cmake -DKPSR_WITH_ZMQ=On -DKPSR_WITH_DDS=Off ../cpp_testing
