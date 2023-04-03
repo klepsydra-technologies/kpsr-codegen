@@ -97,7 +97,7 @@ find_package(Threads REQUIRED)
 find_package(Klepsydra REQUIRED)
 
 # Klepsydra provides the KpsrCodeGen.cmake
-include(${KLEPSYDRA_CODE_GENERATOR})
+include(kpsr-build/cmake/KpsrCodeGen.cmake)
 
 # Project Logic
 # ------------------------------------------------------------------------------------------------------

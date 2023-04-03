@@ -1,0 +1,3 @@
+[submodule "cpp_testing/kpsr-build"]
+	path = cpp_testing/kpsr-build
+	url = git@github.com:klepsydra-technologies/kpsr-build.git
