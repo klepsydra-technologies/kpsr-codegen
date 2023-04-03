@@ -4,14 +4,40 @@
 
 * Python 3.6 or above
 
+build module is needed:
+
+```
+        python3 -m pip install build
+```
+
 ## Installation instructions 
 
-Clone the repo and use the following commands to build and install the code generation tool:
+Clone the repo and submodules: 
 
 ```
-        python3 -m build
+        git submodule update --init --recursive 
+```
+
+and use the following commands to build and install the code generation tool:
+
+
+```
+        python -m unittest
+        python3 -m build --outdir dist .
         pip3 install dist/kpsr_codegen-1.0-py3-none-any.whl
 ```
+
+Run the cpp tests:
+
+```
+        cd cpp_testing
+        mkdir build
+        cd build
+        cmake -DCMAKE_PREFIX_PATH=/home/kpsruser/development/klepsydra/professional/install ..
+        make
+        make test
+```
+
 
 ## Usage
 
