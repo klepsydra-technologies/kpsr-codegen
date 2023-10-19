@@ -64,7 +64,7 @@ TEST(KpsrZMQCodegeTest, primitiveTypeBasicMapperTest) {
 
     //  Process 100 updates
     kpsr::zmq_mdlw::FromZmqMiddlewareProvider _fromZmqMiddlewareProvider;
-    kpsr::zmq_mdlw::FromZmqChannel<std::string> * fromZMQProvider =
+    auto fromZMQProvider =
             _fromZmqMiddlewareProvider.getJsonFromMiddlewareChannel<kpsr::codegen::PrimitiveTypesBasic>(subscriber, 10);
     fromZMQProvider->start();
 
@@ -151,7 +151,7 @@ TEST(KpsrZMQCodegeTest, primitiveTypeArrayMapperTest) {
 
     //  Process 100 updates
     kpsr::zmq_mdlw::FromZmqMiddlewareProvider _fromZmqMiddlewareProvider;
-    kpsr::zmq_mdlw::FromZmqChannel<std::string> * fromZMQProvider =
+    auto fromZMQProvider =
             _fromZmqMiddlewareProvider.getJsonFromMiddlewareChannel<kpsr::codegen::PrimitiveTypesArray>(subscriber, 10);
     fromZMQProvider->start();
 
@@ -256,7 +256,7 @@ TEST(KpsrZMQCodegeTest, primitiveTypeVectorMapperTest) {
 
     //  Process 100 updates
     kpsr::zmq_mdlw::FromZmqMiddlewareProvider _fromZmqMiddlewareProvider;
-    kpsr::zmq_mdlw::FromZmqChannel<std::string> * fromZMQProvider =
+    auto fromZMQProvider =
             _fromZmqMiddlewareProvider.getJsonFromMiddlewareChannel<kpsr::codegen::PrimitiveTypesVector>(subscriber, 10);
     fromZMQProvider->start();
 
@@ -362,7 +362,7 @@ TEST(KpsrZMQCodegeTest, primitiveTypeVectorSharedPtrMapperTest) {
 
     //  Process 100 updates
     kpsr::zmq_mdlw::FromZmqMiddlewareProvider _fromZmqMiddlewareProvider;
-    kpsr::zmq_mdlw::FromZmqChannel<std::string> * fromZMQProvider =
+    auto fromZMQProvider =
             _fromZmqMiddlewareProvider.getJsonFromMiddlewareChannel<kpsr::codegen::PrimitiveTypesVectorSharedPtr>(subscriber, 10);
     fromZMQProvider->start();
 

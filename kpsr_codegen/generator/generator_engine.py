@@ -44,9 +44,6 @@ from middleware_type import MiddlewareType
 from ros_mapper_processor import RosMapperProcessor
 from ros_msg_processor import RosMsgProcessor
 
-from dds_mapper_processor import DdsMapperProcessor
-from dds_idl_processor import DdsIdlProcessor
-
 from zmq_serializer_processor import ZmqSerializerProcessor
 
 from node_handler_processor import NodeHandlerProcessor
@@ -83,9 +80,6 @@ class Generator:
         self.ros_mapper_processor = RosMapperProcessor(configuration)
         self.ros_msg_processor = RosMsgProcessor(configuration)
 
-        self.dds_mapper_processor = DdsMapperProcessor(configuration)
-        self.dds_idl_processor = DdsIdlProcessor(configuration)
-
         self.zmq_serializer_processor = ZmqSerializerProcessor(configuration)
 
         self.node_handler_processor = NodeHandlerProcessor(configuration)
@@ -96,8 +90,6 @@ class Generator:
         self.poco_template = env.get_template('poco_template.h')
         self.ros_mapper_template = env.get_template('ros_mapper_template.h')
         self.ros_msg_template = env.get_template('ros_template.msg')
-        self.dds_mapper_template = env.get_template('dds_mapper_template.h')
-        self.dds_idl_template = env.get_template('dds_template.idl')
         self.zmq_serializer_template = env.get_template('zmq_serializer_template.h')
         self.node_handler_template = env.get_template('node_handler_template.js')
 
@@ -106,9 +98,8 @@ class Generator:
     # @param output_dir The output directory
     # @param include_path
     # @param disable_ros
-    # @param disable_dds
     # @param disable_zmq
-    def render(self, input_dir, output_dir, include_path, disable_ros, disable_dds, disable_zmq):
+    def render(self, input_dir, output_dir, include_path, disable_ros, disable_zmq):
         kidl_files = []
         for (dirpath, dirnames, filenames) in walk(input_dir):
             kidl_files.extend(filenames)
@@ -123,11 +114,11 @@ class Generator:
         related_classes_dict.update(class_definition_dict)
 
         [self.generate_code(related_classes_dict, include_path, input_dir, class_name,
-                            output_dir, disable_ros, disable_dds, disable_zmq) for class_name in class_definition_dict]
+                            output_dir, disable_ros, disable_zmq) for class_name in class_definition_dict]
 
     ## Generate the code from parsed kidl data
     def generate_code(self, class_definition_dict, include_path, input_dir, class_name, output_dir,
-                      disable_ros, disable_dds, disable_zmq):
+                      disable_ros, disable_zmq):
         main_class_definition = class_definition_dict[class_name]
         poco_definition = self.poco_processor.process(main_class_definition.class_name, class_definition_dict,
                                                       include_path)
@@ -162,23 +153,6 @@ class Generator:
             node_handler_file_path = output_dir + "/rosstg/node/" + node_handler_file_name
             node_handler_template_content = self.node_handler_template.render(definition=node_handler_definition)
             write_contents_to_file(node_handler_file_path, node_handler_template_content)
-
-        if (not disable_dds) and (main_class_definition.middlewares.get(MiddlewareType.DDS) is not None):
-            if not main_class_definition.middlewares.get(MiddlewareType.DDS).mapper_include_file:
-                dds_mapper_definition = self.dds_mapper_processor.process(main_class_definition.class_name,
-                                                                          class_definition_dict, include_path)
-                dds_mapper_file_name = output_dir + "/dds/include/" + include_path + "/dds/" \
-                                       + convert_to_lower_case_underscores(class_name) + "_dds_mapper.h"
-                dds_mapper_template_content = self.dds_mapper_template.render(definition=dds_mapper_definition)
-                write_contents_to_file(dds_mapper_file_name, dds_mapper_template_content)
-
-            if not main_class_definition.middlewares.get(MiddlewareType.DDS).already_exists:
-                dds_idl_definition = self.dds_idl_processor.process(main_class_definition.class_name,
-                                                                    class_definition_dict)
-                dds_idl_file_name = output_dir + "/dds/idl/" + \
-                                    convert_to_lower_case_underscores(dds_idl_definition.class_name) + ".idl"
-                dds_idl_template_content = self.dds_idl_template.render(definition=dds_idl_definition)
-                write_contents_to_file(dds_idl_file_name, dds_idl_template_content)
 
         if (not disable_zmq) and main_class_definition.middlewares.get(MiddlewareType.ZMQ) is not None:
             if not main_class_definition.middlewares.get(MiddlewareType.ZMQ).serializer_include_file:

@@ -28,7 +28,7 @@ python3 -m venv build_cpptesting
 . build_cpptesting/bin/activate
 python -m pip install --find-links dist kpsr_codegen
 cd build_cpptesting
-cmake -DKPSR_WITH_DDS=@KPSR_WITH_DDS@ -DKPSR_WITH_ZMQ=@KPSR_WITH_ZMQ@
+cmake -DKPSR_WITH_ZMQ=@KPSR_WITH_ZMQ@
 cmake --build . -- "-j$(nproc)"
 make test
 deactivate

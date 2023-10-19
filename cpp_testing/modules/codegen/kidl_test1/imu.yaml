@@ -21,10 +21,6 @@ middlewares:
       include_file: <sensor_msgs/Imu.h>
       ignore_fields:
           - seq
-    - type: DDS
-      class_name: kpsr_dds_geometry::ImuData
-      sequence_fields: 
-          - seq
     - type: ZMQ
 fields:
     - name   : seq

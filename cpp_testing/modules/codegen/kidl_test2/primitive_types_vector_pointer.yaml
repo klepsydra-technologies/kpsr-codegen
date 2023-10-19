@@ -19,10 +19,6 @@ middlewares:
       project_name: kpsr_ros_codegen
       already_exists: false
       class_name: PrimitiveTypesVectorPointer
-    - type: DDS
-      class_name: kpsr_dds_codegen::PrimitiveTypesVectorPointerData
-      sequence_fields: 
-          - seq
 fields:
     - name   : seq
       type   : uint32

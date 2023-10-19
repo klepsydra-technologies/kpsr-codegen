@@ -21,10 +21,6 @@ middlewares:
       include_file: <geometry_msgs/Vector3.h>
       ignore_fields:
           - seq
-    - type: DDS
-      class_name: kpsr_dds_geometry::Vector3Data
-      sequence_fields: 
-          - seq
     - type: ZMQ
 fields:
     - name   : seq

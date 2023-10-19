@@ -20,7 +20,6 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../kidl_data')))
 
 from middleware_definition import RosMiddlewareDefinition
-from middleware_definition import DdsMiddlewareDefinition
 from middleware_definition import ZmqMiddlewareDefinition
 
 from middleware_type import MiddlewareType
@@ -41,10 +40,6 @@ class MiddlewarePreprocessor:
                                            middleware_data.get('already_exists', False), middleware_data.get('include_file', ''),
                                            middleware_data.get('msg_file', ''), middleware_data.get('project_name'),
                                            middleware_data.get('ignore_fields', []))
-        if middleware_type.lower() == 'dds':
-            return DdsMiddlewareDefinition(MiddlewareType.DDS, mapper_include_file, middleware_data.get('class_name'),
-                                           middleware_data.get('already_exists', False), middleware_data.get('include_file', ''),
-                                           middleware_data.get('idl_file', ''), middleware_data.get('sequence_fields', []))
         if middleware_type.lower() == 'zmq':
             return ZmqMiddlewareDefinition(MiddlewareType.ZMQ, mapper_include_file,
                                            middleware_data.get('serializer_class_name', ''), middleware_data.get('serializer_include_file', ''))

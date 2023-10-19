@@ -29,12 +29,15 @@ jobs:
     container:
       image: ghcr.io/klepsydra-technologies/kpsrbase:1.0.0
     steps:
-      - uses: actions/checkout@v3
+      - name: Clone project
+        uses: actions/checkout@v4
         with:
           submodules: recursive
-          fetch-depth: 0
 
-      - name: Build
+      - name: Install Dependencies
+        uses: ./.github/actions/deps/
+
+      - name: Build project
         run: |
           git config --global --add safe.directory ${GITHUB_WORKSPACE}
           python3 -m pip install build --upgrade
@@ -47,21 +50,13 @@ jobs:
           python3 -m pip install pytest==7.0 --upgrade
           pytest
 
-      - name: Install Klepsydra SDK
-        run: |
-          git clone https://github.com/klepsydra-technologies/kpsr-core.git --recursive
-          cd kpsr-core && mkdir build && cd build
-          cmake .. -DKPSR_RUNTIME=On -DKPSR_ENABLE_TESTS=Off -DKPSR_WITH_ZMQ=On -DKPSR_WITH_DDS=Off
-          cmake --build .
-          cmake --build . --target install
-
       - name: Test codegen against klepsydra core
         timeout-minutes: 10
         run: |
           python3 -m pip install -I --find-links dist kpsr_codegen 
           mkdir build_cpptesting
           cd build_cpptesting
-          cmake -DKPSR_WITH_ZMQ=On -DKPSR_WITH_DDS=Off ../cpp_testing
+          cmake -DKPSR_WITH_ZMQ=On ../cpp_testing
           cmake --build .
           make test
 

@@ -24,7 +24,7 @@ and use the following commands to build and install the code generation tool:
 ```
         python -m unittest
         python3 -m build --outdir dist .
-        pip3 install dist/kpsr_codegen-1.0-py3-none-any.whl
+        pip3 install -I --find-links dist kpsr_codegen
 ```
 
 Run the cpp tests:
@@ -43,7 +43,6 @@ Run the cpp tests:
 
 See the [Tutorial](https://github.com/klepsydra-technologies/kpsr-tutorial/blob/main/tutorials/chapter3.md) for detailed usage of the tool.
 
-The options that can be provided to
 A simple help is available by passing the `-h` option:
 
 ```
@@ -52,7 +51,6 @@ kpsr_codegen [options]:
    Input directory: -i | --idir
    Output directory: -o | --odir
    Include path: -p | --include_path
-   Disable DDS: -d | --disable_dds
    Disable ZMQ: -z | --disable_zmq
    Disable ROS: -r | --disable_ros
    Configuration path: -c | --conf_path
