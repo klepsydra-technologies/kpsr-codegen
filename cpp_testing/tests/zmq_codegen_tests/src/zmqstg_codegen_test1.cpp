@@ -64,7 +64,7 @@ TEST(KpsrZmqCodegeTest, headerMapperTest) {
 
     //  Process 100 updates
     kpsr::zmq_mdlw::FromZmqMiddlewareProvider _fromZmqMiddlewareProvider;
-    kpsr::zmq_mdlw::FromZmqChannel<std::string> * fromZMQProvider =
+    auto fromZMQProvider =
             _fromZmqMiddlewareProvider.getJsonFromMiddlewareChannel<kpsr::geometry::Header>(subscriber, 10);
     fromZMQProvider->start();
 
@@ -139,7 +139,7 @@ TEST(KpsrZmqCodegeTest, gpsMapperTest) {
 
     //  Process 100 updates
     kpsr::zmq_mdlw::FromZmqMiddlewareProvider _fromZmqMiddlewareProvider;
-    kpsr::zmq_mdlw::FromZmqChannel<std::string> * fromZMQProvider =
+    auto fromZMQProvider =
             _fromZmqMiddlewareProvider.getJsonFromMiddlewareChannel<kpsr::geometry::Gps>(subscriber, 10);
     fromZMQProvider->start();
 
@@ -225,7 +225,7 @@ TEST(KpsrZmqCodegeTest, vector3MapperTest) {
 
     //  Process 100 updates
     kpsr::zmq_mdlw::FromZmqMiddlewareProvider _fromZmqMiddlewareProvider;
-    kpsr::zmq_mdlw::FromZmqChannel<std::string> * fromZMQProvider =
+    auto fromZMQProvider =
             _fromZmqMiddlewareProvider.getJsonFromMiddlewareChannel<kpsr::geometry::Vector3>(subscriber, 10);
     fromZMQProvider->start();
 
@@ -310,7 +310,7 @@ TEST(KpsrZmqCodegeTest, quaternionMapperTest) {
 
     //  Process 100 updates
     kpsr::zmq_mdlw::FromZmqMiddlewareProvider _fromZmqMiddlewareProvider;
-    kpsr::zmq_mdlw::FromZmqChannel<std::string> * fromZMQProvider =
+    auto fromZMQProvider =
             _fromZmqMiddlewareProvider.getJsonFromMiddlewareChannel<kpsr::geometry::Quaternion>(subscriber, 10);
     fromZMQProvider->start();
 
@@ -401,7 +401,7 @@ TEST(KpsrZmqCodegeTest, imuMapperTest) {
 
     //  Process 100 updates
     kpsr::zmq_mdlw::FromZmqMiddlewareProvider _fromZmqMiddlewareProvider;
-    kpsr::zmq_mdlw::FromZmqChannel<std::string> * fromZMQProvider =
+    auto fromZMQProvider =
             _fromZmqMiddlewareProvider.getJsonFromMiddlewareChannel<kpsr::geometry::Imu>(subscriber, 10);
     fromZMQProvider->start();
 

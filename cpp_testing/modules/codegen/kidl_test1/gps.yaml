@@ -21,10 +21,6 @@ middlewares:
       include_file: <sensor_msgs/NavSatFix.h>
       ignore_fields:
           - seq
-    - type: DDS
-      class_name: kpsr_dds_geometry::GpsData
-      sequence_fields: 
-          - seq
     - type: ZMQ
 fields:
     - name   : seq

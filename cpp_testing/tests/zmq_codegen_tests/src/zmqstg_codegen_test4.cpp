@@ -61,7 +61,7 @@ TEST(KpsrZMQCodegeTest, inheritanceMapperMapperTest) {
 
     //  Process 100 updates
     kpsr::zmq_mdlw::FromZmqMiddlewareProvider _fromZmqMiddlewareProvider;
-    kpsr::zmq_mdlw::FromZmqChannel<std::string> * fromZMQProvider =
+    auto fromZMQProvider =
             _fromZmqMiddlewareProvider.getJsonFromMiddlewareChannel<kpsr::codegen::InheritanceVector4>(subscriber, 10);
     fromZMQProvider->start();
 

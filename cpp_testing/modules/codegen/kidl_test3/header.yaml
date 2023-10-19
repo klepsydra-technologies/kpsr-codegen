@@ -19,10 +19,6 @@ middlewares:
       already_exists: true
       class_name: Header
       include_file: <std_msgs/Header.h>
-    - type: DDS
-      class_name: kpsr_dds_geometry::HeaderData
-      sequence_fields: 
-          - seq
     - type: ZMQ
 fields:
     - name   : seq

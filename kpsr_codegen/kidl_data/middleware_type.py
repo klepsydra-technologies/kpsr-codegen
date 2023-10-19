@@ -20,7 +20,6 @@ from enum import Enum
 
 class MiddlewareType(Enum):
     ROS = 1
-    DDS = 2
     ZMQ = 3
     REST = 4
     CUSTOM = 5

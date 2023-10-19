@@ -21,10 +21,6 @@ middlewares:
       include_file: <geometry_msgs/Quaternion.h>
       ignore_fields:
           - seq
-    - type: DDS
-      class_name: kpsr_dds_geometry::QuaternionData
-      sequence_fields: 
-          - seq
     - type: ZMQ
 fields:
     - name   : seq

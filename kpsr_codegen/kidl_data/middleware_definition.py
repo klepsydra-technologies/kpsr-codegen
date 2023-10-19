@@ -42,24 +42,6 @@ class RosMiddlewareDefinition(MiddlewareDefinition):
                % (self.__class__.__name__, self.middleware_type, self.mapper_include_file, self.class_name,
                   self.already_exists, self.include_file, self.msg_file, self.project_name, self.ignore_fields)
 
-
-class DdsMiddlewareDefinition(MiddlewareDefinition):
-    def __init__(self, middleware_type, mapper_include_file, class_name, already_exists, include_file, idl_file,
-                 sequence_fields):
-        MiddlewareDefinition.__init__(self, middleware_type, mapper_include_file)
-        self.class_name = class_name
-        self.already_exists = already_exists
-        self.include_file = include_file
-        self.idl_file = idl_file
-        self.sequence_fields = sequence_fields
-
-    def __repr__(self):
-        return "%s(middleware_type=%r, mapper_include_file=%r, class_name=%r, already_exists=%r, include_file=%r, " \
-               "idl_file=%r, sequence_fields=%r)" \
-               % (self.__class__.__name__, self.middleware_type, self.mapper_include_file, self.class_name,
-                  self.already_exists, self.include_file, self.idl_file, self.sequence_fields)
-
-
 class ZmqMiddlewareDefinition(MiddlewareDefinition):
     def __init__(self, middleware_type, mapper_include_file, serializer_class_name, serializer_include_file):
         MiddlewareDefinition.__init__(self, middleware_type, mapper_include_file)

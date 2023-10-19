@@ -18,8 +18,6 @@ middlewares:
       project_name: kpsr_ros_codegen
       already_exists: false
       class_name: Vector4
-    - type: DDS
-      class_name: kpsr_dds_codegen::Vector4Data
     - type: ZMQ
 fields:
     - name   : a

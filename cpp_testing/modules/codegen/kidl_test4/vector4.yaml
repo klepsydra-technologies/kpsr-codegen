@@ -19,10 +19,6 @@ middlewares:
       project_name: kpsr_ros_codegen
       already_exists: false
       class_name: InheritanceVector4
-    - type: DDS
-      class_name: kpsr_dds_codegen::InheritanceVector4Data
-      sequence_fields: 
-          - d
     - type: ZMQ
 fields:
     - name   : d

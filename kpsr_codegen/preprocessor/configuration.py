@@ -23,11 +23,6 @@ import yaml
 # to respective middlewares.
 class Configuration:
     def __init__(self, conf_path):
-        with open(conf_path + "/dds_types.yaml", 'r') as stream:
-            try:
-                self.dds_types = yaml.load(stream, Loader=yaml.FullLoader)
-            except yaml.YAMLError as exc:
-                print(exc)
         with open(conf_path + "/fundamental_types.yaml", 'r') as stream:
             try:
                 self.fundamental_types = yaml.load(stream, Loader=yaml.FullLoader)
@@ -46,11 +41,6 @@ class Configuration:
         with open(conf_path + "/type_modifiers_cpp.yaml", 'r') as stream:
             try:
                 self.type_modifiers_cpp = yaml.load(stream, Loader=yaml.FullLoader)
-            except yaml.YAMLError as exc:
-                print(exc)
-        with open(conf_path + "/type_modifiers_dds.yaml", 'r') as stream:
-            try:
-                self.type_modifiers_dds = yaml.load(stream, Loader=yaml.FullLoader)
             except yaml.YAMLError as exc:
                 print(exc)
         with open(conf_path + "/type_modifiers_ros.yaml", 'r') as stream:
