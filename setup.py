@@ -1,7 +1,7 @@
 #****************************************************************************
 #
 #                           Klepsydra Core Modules
-#              Copyright (C) 2023-2025  Klepsydra Technologies AG
+#              Copyright (C) 2023-2031  Klepsydra Technologies AG
 #                            All Rights Reserved.
 #
 #  This file is subject to the terms and conditions defined in
